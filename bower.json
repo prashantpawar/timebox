@@ -1,0 +1,26 @@
+{
+  "name": "timebox",
+  "version": "0.0.1",
+  "homepage": "https://github.com/prashantpawar/timebox",
+  "description": "An application to manage timeboxed activities.",
+  "main": "src/main.js",
+  "moduleType": [
+    "es6"
+  ],
+  "keywords": [
+    "timebox",
+    "activity",
+    "management"
+  ],
+  "authors": [
+    "Prashant Singh Pawar <prashantpawar@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
