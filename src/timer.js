@@ -20,7 +20,7 @@ var Timer = React.createClass({
     },
     toggleTimer: function (e) {
         var that = this,
-            updateDuration = 100;
+            updateDuration = 1000;
         e.preventDefault();
         if (that.state.timerState === 'Start') { 
             that.setState({timerState: 'Stop'});
@@ -39,8 +39,7 @@ var Timer = React.createClass({
         clearInterval(this.interval);
     },
     render: function() {
-        var timerObj = new Date(this.state.time),
-            timerText = timerObj.getMinutes() + ":" + timerObj.getSeconds() + ":" + timerObj.getMilliseconds();
+        var timerText = moment(this.state.time).format('mm:ss');
         return (
           <div className="timer">
             <div ref="welcome">Hello, world! I am a Timer.</div>
