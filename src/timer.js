@@ -25,7 +25,7 @@ var Timer = React.createClass({
         if (that.state.timerState === 'Start') { 
             that.setState({timerState: 'Stop'});
             that.interval = setInterval(function () {
-                that.setState({that: that.state.time+=updateDuration});
+                that.setState({time: that.state.time+=updateDuration});
             }, updateDuration);
         } else {
             this.setState({timerState: 'Start'});
@@ -33,13 +33,19 @@ var Timer = React.createClass({
         }
         return;
     },
+    resetTimer: function (e) {
+        e.preventDefault();
+        this.setState({timerState: 'Start', time:0});
+        clearInterval(this.interval);
+    },
     render: function() {
         var timerObj = new Date(this.state.time),
             timerText = timerObj.getMinutes() + ":" + timerObj.getSeconds() + ":" + timerObj.getMilliseconds();
         return (
           <div className="timer">
             <div ref="welcome">Hello, world! I am a Timer.</div>
-            <button ref="timerToggleBtn" onClick={this.toggleTimer}>{this.state.timerState}</button>
+            <button onClick={this.toggleTimer}>{this.state.timerState}</button>
+            <button onClick={this.resetTimer}>Reset</button>
             <div className="timerText">{timerText}</div>
             <Lap data={this.state.data}/>
           </div>
