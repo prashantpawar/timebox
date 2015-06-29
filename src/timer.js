@@ -1,6 +1,6 @@
 var Timer = React.createClass({
     getInitialState: function () {
-        return {data: []};
+        return {data: [], time: 0, timerState: 'Start'};
     },
     loadLaps: function () {
         $.ajax({
@@ -18,10 +18,29 @@ var Timer = React.createClass({
     componentDidMount: function () {
         this.loadLaps();
     },
+    toggleTimer: function (e) {
+        var that = this,
+            updateDuration = 100;
+        e.preventDefault();
+        if (that.state.timerState === 'Start') { 
+            that.setState({timerState: 'Stop'});
+            that.interval = setInterval(function () {
+                that.setState({that: that.state.time+=updateDuration});
+            }, updateDuration);
+        } else {
+            this.setState({timerState: 'Start'});
+            clearInterval(that.interval);
+        }
+        return;
+    },
     render: function() {
+        var timerObj = new Date(this.state.time),
+            timerText = timerObj.getMinutes() + ":" + timerObj.getSeconds() + ":" + timerObj.getMilliseconds();
         return (
           <div className="timer">
-            Hello, world! I am a Timer.
+            <div ref="welcome">Hello, world! I am a Timer.</div>
+            <button ref="timerToggleBtn" onClick={this.toggleTimer}>{this.state.timerState}</button>
+            <div className="timerText">{timerText}</div>
             <Lap data={this.state.data}/>
           </div>
         );
